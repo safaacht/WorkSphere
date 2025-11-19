@@ -7,6 +7,67 @@
     </head>
 
     <body>
+
+        <div class="dialogue is-hidden">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="error is-hidden">
+                    
+                </div>
+                <div class="modal-header">
+                    <h3>Fill the form:</h3>
+                    <button id="sortir">X</button>
+                </div>
+                <div class="modal-body">
+                    <form action="" id="my-form">
+                      <div class="group">
+                          <label for="Name">Name:</label>
+                        <input id="name" type="text" placeholder="Enter your name...">
+                      </div>
+                      <div class="group">
+                        <label for="Email">Email:</label>
+                        <input id="email" type="email" placeholder="Enter your email...">
+                      </div>
+                      <div class="group">
+                        <label for="Role">Role:</label>
+                        <select name="role" id="role">
+                            <option value="option1">--Choose one--</option>
+                            <option value="option2">Secretaire</option>
+                            <option value="option3">Security</option>
+                            <option value="option4">Worker</option>
+                            <option value="option5">Secretaire2</option>
+                        </select>
+                      </div>
+                      <div class="group">
+                        <label for="phone">Phone:</label>
+                        <input type="text" id="phone" placeholder="06 00 00 00 00">
+                      </div>
+                      <div class="group"> 
+                        <label for="image url">Image URL:</label>
+                        <input type="text" id="url-image" placeholder="https:/xxxxxxx" >
+                        <div id="image-formr">
+                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar">
+                        </div>
+                        <label for="experiences">Experince(s):</label>
+                      </div>
+                      <div class="groupe" >
+                        <div id="experience">
+                            <label for="Company">Company:</label>
+                            <input id="company" type="text" placeholder="Company name..." ><br>
+                            <label for="from">From:</label>
+                            <input type="date" id="from-date" placeholder="DD/MM/YYYY">
+                            <label for="to">To:</label>
+                            <input type="date" id="to-date" placeholder="DD/MM/YYYY"><br>
+                            <button class="ajouter-exp">Add Experince</button>
+                        
+                        </div>
+                      </div>
+                      <button type="submit" id="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="all-content">
 
             <!-- =========Lateral liste========= -->
@@ -21,11 +82,11 @@
 
             <!-- ========Image Container======= -->
 
-            <div class="image-container">
+            <div class="image-container" >
 
              <img src="plan-image.jpg" alt="image">
 
-             <div class="zones">   
+              <div class="zones">   
                 <div id="1" class="reception">
                     <P>Reception</P>
                     <div class="empty"></div>
@@ -37,7 +98,8 @@
                     <button class="ajouter">+</button>
                 </div>
                 <div id="3" class="zone3">
-                    <p>test</p>
+                </div>
+                <div id="8" class="zone4">
                 </div>
                 <div id="4" class="serveurs">
                     <p>Salle-Serveurs</p>

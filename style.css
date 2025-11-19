@@ -1,11 +1,15 @@
 *{
     margin: 0;
     padding: 0;
+    overflow: none;
     
 }
 
 
-/* Titles*/
+/* ========Titles========*/
+h3{
+   text-decoration: underline;
+}
 
 h4{
     padding: 30px;
@@ -13,12 +17,17 @@ h4{
     text-align: center;
 }
 
-/* Buttons */
+/* ========Buttons ========*/
+button{
+    cursor: pointer;
+}
+
 .ajouter{
     border-radius: 6px;
     color: black;
     background-color: rgb(66, 188, 66);
     padding: 3px 25px;
+    transition: 0.2s;
 
 
 }
@@ -39,7 +48,8 @@ h4{
     color: black;
     background-color: rgb(66, 188, 66);
     padding: 10px 5px; 
-    margin-left: 4rem;
+    margin-top: 1rem;
+    width: 100%;
 
 }
 
@@ -47,46 +57,77 @@ h4{
     color: whitesmoke;
 }
 
-/* ALL Body */
+#sortir{
+    padding: 5px 10px;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.ajouter-exp{
+    border-radius: 6px;
+    color: black;
+    background-color: rgb(221, 131, 28);
+    padding: 2px 5px; 
+    margin-left: 18rem;
+    
+}
+
+#submit{
+    border-radius: 6px;
+    color: black;
+    background-color: rgb(66, 188, 66);
+    padding: 5px 10px; 
+    margin-left: 35%;
+
+
+  
+}
+
+/* ========ALL Body======= */
 
 .all-content{
     background: rgb(203, 135, 135);
     display: flex;
+    height: 100vh;
   
 }
 
 
-/* lateral list */
+/* ==========lateral list ============*/
 .lateral{
     background-color:#dfad67a4 ;
-    width: 20%;
-    display: flex;
-    justify-content: center;
-    border: 1px solid;
+    width: 22%;
+    /* display: flex;
+    justify-content: center; */
+    border: 1px solid #444;
+    padding: 20px;
 }
-.lateral div{
+
+#empty-lateral{
+    height: 50vh;
     display: flex;
     justify-content: center;
     margin-top: 40px;
 }
-#empty-lateral{
-    height: 50vh;
-}
 
+/* ======Image background====== */
 .image-container{
     position: relative;
     width: 100%;
-    max-width: 65rem;
-    /* height: 35rem; */
+    overflow: hidden;
+
 }
 
 .image-container img{
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    display: block;
 }
 
+
+
+/* =======Grid Zones======= */
  .zones {
     position: absolute;
     top: 0;
@@ -95,57 +136,141 @@ h4{
     height: 100%;
 
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 200px 200px  ;
-    grid-gap: 20px ;
+    grid-template-columns:1.8fr 0.8fr 1.2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 2px ;
 
-    grid-template-areas:
-        "conference conference serveurs securite"
-        "reception   zone3    serveurs securite"
-        "reception   zone3    personnel archive";
+   grid-template-areas:
+        "conference zone3 serveurs securite"
+        "reception zone3 zone4 zone4"
+        "reception zone3 personnel archive";
 
 } 
 
 
 .conference { grid-area: conference; }
-.reception { grid-area: reception; }
+.reception { grid-area: reception;}
 .zone3    {grid-area: zone3 ;}
+.zone4    {grid-area: zone4 ;}
 .serveurs { grid-area: serveurs; }
-.securite { grid-area: securite; }
+.securite { grid-area: securite;}
 .personnel { grid-area: personnel; }
 .archive { grid-area: archive; }
 
 .zones p{
-    font-size: 25px;
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    top: 50%;
 }
 
+.zones button{
+    position: relative;
+    top: 50%;
+    left: 40%;
+}
+
+/* Modal */
+ 
+.is-hidden {
+    display: none;
+}
+
+.modal-header{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+p{
+    font-size: 20px;
+}
+
+li{
+    list-style: none;
+}
+
+.content {
+    position: absolute;
+    z-index: 10 ;
+    height: 460px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 18px;
+    background-color: rgb(243, 243, 243);
+    padding: 10px 20px;
+}
+.overlay {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.893);
+}
+
+
+/* ======Form======= */
+.group{
+    line-height: 30px;
+    background-color: rgb(165, 160, 160);
+
+}
+
+.group label{
+    margin-left:20px ;
+}
+
+.groupe{
+    line-height: 30px;
+    background-color: rgb(165, 160, 160);
+}
+
+.groupe label{
+    margin-left:20px ;
+}
+
+
+ #image-formr img{
+    width:100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-left: 10px;
+}
 
 
 /* Paysage  */
 
 /* Mobile */
-@media (min-width: 768px) and (max-width: 1023px){
-.image-container{
-    width: 100vw;
-    height: auto;
+@media (max-width: 768px) {
+.image-container img{
+    /* width: 100vw;
+    height: auto; */
+    transform:rotate(90deg);
 }
   
 }
 
 /* Tablette */
-@media (min-width:1024) and (max-width: 1279px) {
+/* @media (min-width:1024px) and (max-width: 1279px) {
  .image-container{   
     width: 90vh;
     height: auto;
  }
-}
+} */
 
 
 /* Buttons */
-#ajouter-lateral{
+/* #ajouter-lateral{
     padding: 3px 25px;
     display: flex;
     justify-content: end;
     margin-left: 1rem;
 
-}
+} */
