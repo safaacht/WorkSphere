@@ -12,7 +12,7 @@
             <div class="overlay"></div>
             <div class="content">
                 <div class="error is-hidden">
-                    
+                    <ul id="liste-error"></ul>
                 </div>
                 <div class="modal-header">
                     <h3>Fill the form:</h3>
@@ -31,11 +31,14 @@
                       <div class="group">
                         <label for="Role">Role:</label>
                         <select name="role" id="role">
-                            <option value="option1">--Choose one--</option>
-                            <option value="option2">Secretaire</option>
-                            <option value="option3">Security</option>
-                            <option value="option4">Worker</option>
-                            <option value="option5">Secretaire2</option>
+                            <option selected disabled>--Choose one--</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="Security Agent">Security Agent</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="IT technician">IT technician</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Other">Other</option>
+
                         </select>
                       </div>
                       <div class="group">
@@ -46,21 +49,12 @@
                         <label for="image url">Image URL:</label>
                         <input type="text" id="url-image" placeholder="https:/xxxxxxx" >
                         <div id="image-formr">
-                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar">
+                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar" id="avatar">
                         </div>
-                        <label for="experiences">Experince(s):</label>
+                        <label for="experiences">Experince(s):  <button id="experience" class="ajouter-exp">Add Experince</button></label>
                       </div>
-                      <div class="groupe" >
-                        <div id="experience">
-                            <label for="Company">Company:</label>
-                            <input id="company" type="text" placeholder="Company name..." ><br>
-                            <label for="from">From:</label>
-                            <input type="date" id="from-date" placeholder="DD/MM/YYYY">
-                            <label for="to">To:</label>
-                            <input type="date" id="to-date" placeholder="DD/MM/YYYY"><br>
-                            <button class="ajouter-exp">Add Experince</button>
-                        
-                        </div>
+                      
+                      <div id="exp-div" class="groupe" >
                       </div>
                       <button type="submit" id="submit">Submit</button>
                     </form>
@@ -75,7 +69,14 @@
             <div class="lateral">
                 <aside>
                    <h4><em> Employees (UNASSIGNED)</em></h4>
-                   <div class="empty" id="empty-lateral"> <p>jgj</p></div>
+                   <div class="empty" id="empty-lateral"> 
+                    <div class="workers-container">
+                        <ul id="lateral-ul"></ul>
+                    </div>
+                    
+                        
+                    </ul>
+                   </div>
                    <button class="ajouter" id="ajouter-lateral"><em>Add Employee</em></button> 
                 </aside>
             </div>
