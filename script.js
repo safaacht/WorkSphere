@@ -6,7 +6,7 @@
 const ajout=document.getElementById("ajouter-lateral");
 const form=document.getElementById("my-form");
 const addExperience=document.querySelector(".ajouter-exp");
-const experience=document.getElementById("experince")
+const experience=document.getElementById("experience")
 const submit=document.getElementById("submit");
 const ul=document.getElementById("lateral-ul");
 const inputImage = document.getElementById("url-image")
@@ -106,7 +106,7 @@ form.addEventListener("submit",(e)=>{
     }
 
     // ajt data des experiences
-    newexp.push({company:company,rrol:rrole,startDate:startDate.value,endDate:endDate.value})
+    newexp.push({company:company.value.trim(),rrol:rrole.value.trim(),startDate:startDate.value,endDate:endDate.value})
     })
 
 
@@ -130,12 +130,14 @@ form.addEventListener("submit",(e)=>{
 
 // declaration d'un nouveau obj
       let newEmplye ={
+        id:employees.length+1,
         image:image,
         name:name,
         email:email,
         role:role,
         phone:phone,
         experience : newexp,
+        zone: null
     }
 
 
@@ -161,7 +163,9 @@ ajout.addEventListener("click",()=>{
 
     })
 
-    const btn=document.getElementById("sortir");
+    // 
+const btn=document.querySelector("#sortir");
+
 btn.addEventListener("click",()=>{
         dialogue.classList.add('is-hidden');
     })
@@ -190,27 +194,63 @@ addExperience.addEventListener("click",(e)=>{
 })
 
 
+
 function affichageEmployee(){
+    ul.innerHTML = ""
 const worker=JSON.parse(localStorage.getItem("workers"));
-
-ul.innerHTML="";
-
 worker.forEach(person=>{
-    ul.innerHTML+=`
-    <li> 
+    const myLi=document.createElement("li");
+    myLi.className ="lateral-li"
+    myLi.innerHTML+=`
     ${person.name}
-    </li>
-    <li> 
     ${person.role}
-    </li>
-    <li> 
     <img id="lateral-img" src="${person.image}" width="60"/>
-    </li>
+ 
     `
+    ul.appendChild(myLi )
 
 })
 }
 
+// affichage des employees meme si la page est refrechee
 document.addEventListener("DOMContentLoaded", () => {
     affichageEmployee();
 });
+
+
+
+    // ============================
+    //   Adding workers in zones
+    // ============================
+
+    const butn=document.querySelectorAll(".ajouter-workr");
+    const zoneDiv=document.querySelectorAll(".empty");
+    const modal=document.querySelector("#modal-body");
+    const dilog=document.querySelector(".dialogue-list");
+    const liste=document.querySelector("#lateral-ul")
+    const sortir=document.querySelector(".List-sortir");
+
+function showModal(){
+        modal.classList.remove("is-hidden");
+        dilog.classList.remove("is-hidden");
+
+        const cloneList = liste.cloneNode(true)     
+        modal.appendChild(cloneList)
+
+    }
+
+butn.forEach((b)=>{
+        b.addEventListener("click",()=>{
+         showModal() 
+    })
+    })
+
+sortir.addEventListener("click",()=>{
+    dilog.classList.add("is-hidden");
+})
+
+
+    // ===============================
+    //   Affichage worker's details
+    // ===============================
+
