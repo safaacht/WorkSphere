@@ -2,6 +2,8 @@
 //     Modal and its Form
 // ============================
 
+
+
 // declaration des variables
 const ajout=document.getElementById("ajouter-lateral");
 const form=document.getElementById("my-form");
@@ -10,9 +12,8 @@ const experience=document.getElementById("experience")
 const submit=document.getElementById("submit");
 const ul=document.getElementById("lateral-ul");
 const inputImage = document.getElementById("url-image")
-
-
 let employees = []
+let employeesAssigned=[]; 
 
 // saving in localStorage
 
@@ -20,12 +21,14 @@ function saveData(){
     localStorage.setItem("workers",JSON.stringify(employees))
 }
 
+// getting back data 
+employees=JSON.parse(localStorage.getItem("workers")) || [];
 
 
 
 form.addEventListener("submit",(e)=>{
     e.preventDefault();
-
+    
     // declaration des variables
     const image=document.getElementById("url-image").value.trim();
     const name=document.getElementById("name").value.trim();
@@ -34,104 +37,81 @@ form.addEventListener("submit",(e)=>{
     const phone=document.getElementById("phone").value.trim();
     const err=document.querySelector(".error")
     
-
+    
     // new array to save all the errors
     const erreurs =[]
     
     // pour afficher les erreurs tous à la fois
     const errooor = document.querySelector("#liste-error");
     errooor.innerHTML="";
-
-
-
-
+    
+    
+    
+    
     // declaration du regex
     const regexEmail=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexPhone=/^(?:\+212|0)([5-7]\d{8})$/;
-
-
-
-
-
-    
-    if(!name){
-        erreurs.push("Invalid name !!") 
-
-    }
-    if(!email || !regexEmail.test(email)){
-        erreurs.push("Invalid email !!") 
-
-    }
-
-    if (role === "--Choose one--") {
-        erreurs.push("Invalid role !!");
-    }
-
-    if(!phone|| !regexPhone.test(phone)){
-        erreurs.push("Invalid phone !!") 
-
-    }
     
     
-    if(!image){
-        erreurs.push("Invalid image !!") 
-    }
-
-
-    // experinces
-    let newexp = []
-    const newDiv=document.querySelectorAll(".new-div");
-    // validation d'experiences
-
-    newDiv.forEach(exp=>{
-
-    const company=document.getElementById("company");
-    const rrole=document.getElementById("exp-role");
-    const startDate=document.getElementById("from-date");
-    const endDate=document.getElementById("to-date");
     
-
-    if(!company.value.trim()){
-        erreurs.push("Fill company input !!") 
-
-    }
-
-    if(!rrole.value.trim()){
-        erreurs.push("Fill role(experience) input !!") 
-
-    }    
-
-    if(startDate.value>endDate.value){
-        erreurs.push(" Dates are not logicale!!")         
-    }
-
-    // ajt data des experiences
-    newexp.push({company:company.value.trim(),rrol:rrole.value.trim(),startDate:startDate.value,endDate:endDate.value})
-    })
-
-
-
-    // affichage des erreurs if y'en a 
-
-    if(erreurs.length>0){
-        errooor.innerHTML="";
-
-        erreurs.forEach(e=>{
-            errooor.innerHTML+=`
-        <li> ${e}</li>
-        `
-        err.classList.remove("is-hidden")
+    if(!name) erreurs.push("Invalid name !!") 
         
-        })
-        
-       return; 
-    }
-
-
-// declaration d'un nouveau obj
-      let newEmplye ={
-        id:employees.length+1,
-        image:image,
+        if(!email || !regexEmail.test(email)) erreurs.push("Invalid email !!") 
+            
+            if (role === "--Choose one--") erreurs.push("Invalid role !!");
+            
+            if(!phone|| !regexPhone.test(phone))  erreurs.push("Invalid phone !!") 
+                
+                if(!image) erreurs.push("Invalid image !!") 
+                    
+                    
+                    
+                    // experinces
+                    let newexp = []
+                    const newDiv=document.querySelectorAll(".new-div");
+                    // validation d'experiences
+                    
+                    newDiv.forEach(exp=>{
+                        
+                        const company=document.getElementById("company");
+                        const rrole=document.getElementById("exp-role");
+                        const startDate=document.getElementById("from-date");
+                        const endDate=document.getElementById("to-date");
+                        
+                        
+                        if(!company.value.trim()) erreurs.push("Fill company input !!") 
+                            
+                            if(!rrole.value.trim()) erreurs.push("Fill role(experience) input !!")    
+                                
+                                if(startDate.value>endDate.value) erreurs.push(" Dates are not logicale!!")         
+                                    
+                                    // ajt data des experiences
+                                    newexp.push({company:company.value.trim(),rrol:rrole.value.trim(),startDate:startDate.value,endDate:endDate.value})
+                                })
+                                
+                                
+                                
+                                // affichage des erreurs if y'en a 
+                                
+                                if(erreurs.length>0){
+                                    errooor.innerHTML="";
+                                    
+                                    erreurs.forEach(e=>{
+                                        errooor.innerHTML+=`
+                                        <li> ${e}</li>
+                                        `
+                                        err.classList.remove("is-hidden")
+                                        
+                                    })
+                                    
+                                    return; 
+                                }
+                                
+                                
+                                // declaration d'un nouveau obj
+                                let newEmplye ={
+                                    id:employees.length,
+                                    image:image,
         name:name,
         email:email,
         role:role,
@@ -145,7 +125,7 @@ form.addEventListener("submit",(e)=>{
 
     employees.push(newEmplye);
     saveData();
-    affichageEmployee();
+    renderAll();
     form.reset();
     
     
@@ -195,28 +175,57 @@ addExperience.addEventListener("click",(e)=>{
 
 
 
-function affichageEmployee(){
-    ul.innerHTML = ""
-const worker=JSON.parse(localStorage.getItem("workers"));
-worker.forEach(person=>{
-    const myLi=document.createElement("li");
-    myLi.className ="lateral-li"
-    myLi.innerHTML+=`
-    ${person.name}
-    ${person.role}
-    <img id="lateral-img" src="${person.image}" width="60"/>
- 
-    `
-    ul.appendChild(myLi )
+function renderAll(){
+    
+    
 
-})
+     let zones =["serveurs","securite","personnel","archive","conference","reception"]
+     const unassingEmploye = employees.filter(e=>e.zone === null)
+     if(unassingEmploye.length>0){
+        ul.innerHTML=""
+         unassingEmploye.forEach(person=>{
+        const myLi=document.createElement("li");
+        myLi.className ="lateral-li"
+        myLi.setAttribute("id",person.id)
+        myLi.innerHTML+=`
+        ${person.name}
+        ${person.role}
+        <img id="lateral-img" src="${person.image}" width="60"/>
+     
+        `
+        ul.appendChild(myLi )
+    
+    
+    })
+        
+     }
+     
+    zones.forEach(zone=>{
+        const divZone = document.querySelector(".container-"+zone)
+        
+        
+        const employesZone = employees.filter(em=>em.zone === zone)
+        divZone.innerHTML="";
+
+        employesZone.forEach(e=>{
+            divZone.innerHTML += `
+            <ul>
+                <li>${e.name}</li>
+                <li>${e.email}</li>
+                <li>${e.role}</li>
+            </ul>
+            `
+        })
+        }
+    
+    )
+
+
 }
-
 // affichage des employees meme si la page est refrechee
 document.addEventListener("DOMContentLoaded", () => {
-    affichageEmployee();
+    renderAll();
 });
-
 
 
     // ============================
@@ -229,19 +238,61 @@ document.addEventListener("DOMContentLoaded", () => {
     const dilog=document.querySelector(".dialogue-list");
     const liste=document.querySelector("#lateral-ul")
     const sortir=document.querySelector(".List-sortir");
+    const recep=document.querySelector(".empty-resp");
+    const conf=document.querySelector(".empty-conf");
+    const servr=document.querySelector(".empty-servr");
+    const secur=document.querySelector(".empty-securty");
+    const perso=document.querySelector(".empty-perso")
+    const arch=document.querySelector(".empty-arch");
 
-function showModal(){
-        modal.classList.remove("is-hidden");
-        dilog.classList.remove("is-hidden");
 
-        const cloneList = liste.cloneNode(true)     
-        modal.appendChild(cloneList)
+function showModal(zoneChoisi){
+    modal.classList.remove("is-hidden");
+    dilog.classList.remove("is-hidden");
+    modal.innerHTML="";
+    const cloneList = liste.cloneNode(true) ;    
+    modal.appendChild(cloneList);
 
-    }
+ const dialg=document.querySelector(".dialogue-list")   
+const list =  dialg.querySelectorAll(".lateral-li")  
+
+
+list.forEach(li=>{
+    
+    li.addEventListener("click",(e)=>{
+     const mySelected = employees.find(employee=> employee.id == li.getAttribute("id") )
+     mySelected.zone = zoneChoisi;
+     saveData();
+     renderZone(employees,zoneChoisi)     
+    })
+})
+    
+}
+
+// function renderZone(employees,zone){
+//     let classdiv = "." + zone
+//     console.log(classdiv)
+//     const employeeZone=employees.filter(e=>e.zone==zone);
+//     const divZone=document.querySelector(classdiv);
+//     divZone.innerHTML = "";
+//     employeeZone.forEach(e=>{
+//             divZone.innerHTML +=`
+//             <ul>
+//                 <li>${e.name}</li>
+//                 <li>${e.email}</li>
+//                 <li>${e.role}</li>
+//             </ul>
+//     `
+//     })
+
+    
+
+// }
 
 butn.forEach((b)=>{
-        b.addEventListener("click",()=>{
-         showModal() 
+        b.addEventListener("click",(e)=>{
+        const zoneChoisi = e.currentTarget.dataset.zone;
+        showModal(zoneChoisi) ;
     })
     })
 
@@ -250,7 +301,13 @@ sortir.addEventListener("click",()=>{
 })
 
 
+
     // ===============================
     //   Affichage worker's details
     // ===============================
 
+    // const detail=document.querySelector(".")
+
+    // detail.addEventListener("click",()=>{
+
+    // })
