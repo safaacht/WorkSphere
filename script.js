@@ -177,7 +177,7 @@ function renderAll() {
         ${person.name}<br>
         ${person.role}
         <button class="details-btn">ℹ️</button>
-        <img id="lateral-img" src="${person.image}" width="60"/>
+        <img class="lateral-img" src="${person.image}" width="60"/>
      
         `;
       ul.appendChild(myLi);
@@ -192,15 +192,19 @@ function renderAll() {
 
     employesZone.forEach((e) => {
       divZone.innerHTML += `
-            <ul>
-                <li>${e.name}</li>
-                <li>${e.email}</li>
-                <li>${e.role}</li>
+            <ul class="zone-ul">
+            <li class="zone-li">${e.name}</li>
+            <li class="zone-li">${e.email}</li>
+            <li class="zone-li">${e.role}</li>
+            <button class="details-btn">ℹ️</button>
+        <img class="lateral-img" src="${e.image}" width="10"/>
+        <button class="delete">X</button>
             </ul>
             `;
     });
   });
 }
+
 // affichage des employees meme si la page est refrechee
 document.addEventListener("DOMContentLoaded", () => {
   renderAll();
@@ -212,48 +216,66 @@ document.addEventListener("DOMContentLoaded", () => {
 // ============================
 
 const butn = document.querySelectorAll(".ajouter-workr");
-const zoneDiv = document.querySelectorAll(".empty");
+// const zoneDiv = document.querySelectorAll(".empty");
 const modal = document.querySelector("#modal-body");
 const dilog = document.querySelector(".dialogue-list");
 const liste = document.querySelector("#lateral-ul");
 const sortir = document.querySelector(".List-sortir");
-const recep = document.querySelector(".empty-resp");
+const recep = document.querySelector(".container-resp");
 const conf = document.querySelector(".empty-conf");
 const servr = document.querySelector(".empty-servr");
 const secur = document.querySelector(".empty-securty");
 const perso = document.querySelector(".empty-perso");
 const arch = document.querySelector(".empty-arch");
 
+
+
+
+
 function showModal(zoneChoisi) {
   const dialg = document.querySelector(".dialogue-list");
-  const list = dialg.querySelectorAll(".lateral-li");
+  
 
   modal.classList.remove("is-hidden");
-  dilog.classList.remove("is-hidden");
+  dialg.classList.remove("is-hidden");
   modal.innerHTML = "";
 
+// cloning the ul
   const cloneList = liste.cloneNode(true);
   modal.appendChild(cloneList);
+  
+  listeClick(zoneChoisi)
+  detailModel();
+}
 
-  list.forEach((li) => {
-    li.addEventListener("click", (e) => {
-      const mySelected = employees.find(
-        (employee) => employee.id == li.getAttribute("id")
-      );
-      mySelected.zone = zoneChoisi;
+function listeClick(zoneChoisi){
+    const list = modal.querySelectorAll(".lateral-li");
 
-      // employees.splice(li,1)
+    list.forEach((li) => {
+      li.addEventListener("click", () => {        
+          
+          const mySelected = employees.find(
+              employee => employee.id == li.getAttribute("id"));
+              
+              mySelected.zone = zoneChoisi;
+
+       li.remove();     
       saveData();
       renderAll();
+      
+      
     });
+    
   });
 }
 
 // + button
 butn.forEach((b) => {
-  b.addEventListener("click", (e) => {
+    b.addEventListener("click", (e) => {
     const zoneChoisi = e.currentTarget.dataset.zone;
     showModal(zoneChoisi);
+    listeClick(zoneChoisi)
+
   });
 });
 

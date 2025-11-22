@@ -67,6 +67,13 @@ button{
     border-radius: 5px;
 }
 
+.Details-sortir{
+    padding: 5px 10px;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 5px;
+}
+
 .ajouter-exp{
     border-radius: 6px;
     color: black;
@@ -87,12 +94,19 @@ button{
 
   
 }
+.details-btn{
+    background-color: orange;
+    padding: 1px 2px ;
+    height: 1.5rem;
+    position: relative;
+    left:50%;
+}
 
 .delete{
     border-radius: 6px;
     color: white;
     background-color: rgb(118, 14, 14);
-    padding: 3px 25px;
+    padding: 3px 5px;
 }
 
 /* ========ALL Body======= */
@@ -156,7 +170,7 @@ button{
     height: 100%;
 
     display: grid;
-    grid-template-columns:1.8fr 0.8fr 1.2fr 1fr;
+    grid-template-columns:1.8fr 0.8fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 2px ;
 
@@ -166,7 +180,12 @@ button{
         "reception zone3 personnel archive";
 
 } 
-
+.securite{
+    background-color: aqua;
+}
+.zone4{
+    background-color: #000;
+}
 
 .conference { grid-area: conference; }
 .reception { grid-area: reception;}
@@ -181,16 +200,35 @@ button{
     font-size: 18px;
     text-align: center;
     font-weight: bold;
+
     position: relative;
-    top: 50%;
+    top: 5px;
+    left: 50%;
+    transform:translateX(-50%) ;
+    z-index: 5;
+    padding: 3px 8px;
+
+   
 }
 
-.zones button{
-    position: relative;
-    top: 50%;
-    left: 40%;
-}
 
+.zone-ul {
+  border: 1px solid #ddd;
+  margin: 5px 0;
+  padding: 8px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  width: auto;
+  display: block;
+  z-index: 1;
+
+  
+}
+.zone-li {
+  list-style: none;
+  margin-bottom: 3px;
+
+}
 /* Modal */
  
 .is-hidden {
