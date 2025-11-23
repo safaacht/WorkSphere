@@ -326,32 +326,104 @@ button{
 }
 
 
-/* Paysage  */
+/* ========================================== */
+/*             Responsive-Paysage             */
+/* ========================================== */
 
 /* Mobile */
-/* @media (max-width: 768px) {
-.image-container img{
-    width: 100vw;
-    height: auto;
-    transform:rotate(90deg);
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    .all-content {
+        overflow: hidden; 
+        transform: rotate(90deg);
+    }
+    
+
+    /* Sidebar "lateral"   */
+    .lateral {
+        width: 20%; 
+        padding: 10px;
+    }
+    
+    .lateral h4 {
+        padding: 10px; 
+        font-size: 0.9rem;
+    }
+
+    /* Avatars */
+    .lateral-img {
+        width: 40px; 
+    }
+
+    .lateral-li {
+        padding: 5px;
+        font-size: 0.8rem; 
+    }
+
+   
+    
+    /* Titres des zones  */
+    .zones p {
+        font-size: 14px;
+        padding: 2px 5px;
+        top: 2px;
+    }
+
+    /* Cards in zones*/
+    .zone-ul {
+        width: 95%;
+        padding: 2px;
+        font-size: 0.6rem; 
+    }
+
+    .zone-li {
+        margin-bottom: 1px;
+    }
+
+    /* Boutons + dans les zones */
+    .ajouter-workr {
+        padding: 0px 10px;
+        font-size: 12px;
+        height: 20px;
+    }
+
+    /* Boutons detail/delete  */
+    .zone-ul .details-btn, 
+    .zone-ul .delete {
+        font-size: 8px;
+        padding: 1px 3px;
+    }
 }
-  
-} */
 
 /* Tablette */
-/* @media (min-width:1024px) and (max-width: 1279px) {
- .image-container{   
-    width: 90vh;
-    height: auto;
- }
-} */
 
+@media (min-width: 1024px) and (max-width: 1279px) {
 
-/* Buttons */
-/* #ajouter-lateral{
-    padding: 3px 25px;
-    display: flex;
-    justify-content: end;
-    margin-left: 1rem;
+    .lateral {
+        width: 25%;
+        padding: 15px;
+    }
 
-} */
+    .lateral h4 {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    
+    
+    /* Titres des zones */
+    .zones p {
+        font-size: 16px;
+    }
+
+    
+    .zone-ul {
+        font-size: 0.7rem;
+    }
+
+    .zone-ul .details-btn, 
+    .zone-ul .delete {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+}
