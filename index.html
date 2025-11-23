@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+
+        <title> WorkSphere</title>
+
         <link rel="stylesheet" href="style.css">
         <script src="script.js" defer></script>
     </head>
@@ -19,17 +22,17 @@
                     <button id="sortir" class="sortir">X</button>
                 </div>
                 <div class="modal-body">
-                    <form action="" id="my-form">
+                    <form action="#" id="my-form">
                       <div class="group">
-                          <label for="Name">Name:</label>
+                          <label for="name">Name:</label>
                         <input id="name" type="text" placeholder="Enter your name...">
                       </div>
                       <div class="group">
-                        <label for="Email">Email:</label>
+                        <label for="email">Email:</label>
                         <input id="email" type="email" placeholder="Enter your email...">
                       </div>
                       <div class="group">
-                        <label for="Role">Role:</label>
+                        <label for="role">Role:</label>
                         <select name="role" id="role">
                             <option selected disabled>--Choose one--</option>
                             <option value="Receptionist">Receptionist</option>
@@ -46,12 +49,13 @@
                         <input type="text" id="phone" placeholder="06 00 00 00 00">
                       </div>
                       <div class="group"> 
-                        <label for="image url">Image URL:</label>
+                        <label for="url-image">Image URL:</label>
                         <input type="text" id="url-image" placeholder="https:/xxxxxxx" >
                         <div id="image-formr">
                             <img src="https://avatar.iran.liara.run/public/26" alt="avatar" id="avatar">
                         </div>
-                        <label for="experiences">Experince(s):  <button id="experience" class="ajouter-exp">Add Experince</button></label>
+                        <label for="experience">Experince(s): </label>
+                        <button id="experience" class="ajouter-exp">Add Experince</button>
                       </div>
                       
                       <div id="exp-div" class="groupe" >
