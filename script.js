@@ -301,7 +301,7 @@ function showModal(zoneChoisi) {
   modal.innerHTML = "";
 
 
-  const validEmployees = employees.filter( (e) => e.zone === null );
+  const validEmployees = employees.filter( (e) => e.zone === null && accessZone(e.role, zoneChoisi) );
 
   const tempUl = document.createElement("ul");
 
@@ -382,6 +382,40 @@ function showDetailsModal(id) {
     dialogue.classList.add("is-hidden");
   });
 }
+
+
+// ===============================
+//    Zone's restrictions
+// ===============================
+
+function accessZone(role, zone) {
+  //  manager=everywhere
+  if (role === "Manager") return true;
+
+  //  reception zone = only receptionists
+  if (zone === "reception") {
+    return role === "Receptionist";
+  }
+
+  // server zone = only IT tech
+  if (zone === "serveurs") {
+    return role === "IT technician";
+  }
+
+  // security zone =only security agents
+  if (zone === "securite") {
+    return role === "Security Agent";
+  }
+
+  // cleaning =everywhere except archive
+  if (zone === "archive" && role === "Cleaning") {
+    return false;
+  }
+
+//  other role can access anywhere except the resticted ones
+  return true;
+}
+
 
 // page load
 document.addEventListener("DOMContentLoaded", () => {
