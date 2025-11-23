@@ -14,7 +14,18 @@ h3{
 h4{
     padding: 30px;
     border: 3px solid;
+    border-radius: 6px;
     text-align: center;
+}
+
+/* ======Paragraphs====== */
+p{
+    font-size: 20px;
+}
+
+/* ======Listes====== */
+li{
+    list-style: none;
 }
 
 /* ========Buttons ========*/
@@ -22,34 +33,33 @@ button{
     cursor: pointer;
 }
 
-.ajouter{
+.ajouter-workr{
     border-radius: 6px;
     color: black;
     background-color: rgb(66, 188, 66);
     padding: 3px 25px;
     transition: 0.2s;
+    /* margin-left: 2rem; */
+    position: relative;
+    left: 40%;
 
 
 }
 
-.ajouter:hover{
+.ajouter-workr:hover{
     color: whitesmoke;
 }
 
-.delete{
-    border-radius: 6px;
-    color: white;
-    background-color: rgb(118, 14, 14);
-    padding: 3px 25px;
-}
+
 
 #ajouter-lateral{
     border-radius: 6px;
     color: black;
     background-color: rgb(66, 188, 66);
     padding: 10px 5px; 
-    margin-top: 1rem;
+    margin-top: 4rem;
     width: 100%;
+
 
 }
 
@@ -58,6 +68,20 @@ button{
 }
 
 #sortir{
+     padding: 5px 10px;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.List-sortir{
+    padding: 5px 10px;
+    color: whitesmoke;
+    background-color: red;
+    border-radius: 5px;
+}
+
+.Details-sortir{
     padding: 5px 10px;
     color: whitesmoke;
     background-color: red;
@@ -69,7 +93,7 @@ button{
     color: black;
     background-color: rgb(221, 131, 28);
     padding: 2px 5px; 
-    margin-left: 18rem;
+    /* margin-left: 18rem; */
     
 }
 
@@ -79,9 +103,24 @@ button{
     background-color: rgb(66, 188, 66);
     padding: 5px 10px; 
     margin-left: 35%;
+    margin-top: 1rem;
 
 
   
+}
+.details-btn{
+    background-color: orange;
+    padding: 1px 2px ;
+    height: 1.5rem;
+    position: relative;
+    left:50%;
+}
+
+.delete{
+    border-radius: 6px;
+    color: white;
+    background-color: rgb(118, 14, 14);
+    padding: 3px 5px;
 }
 
 /* ========ALL Body======= */
@@ -98,8 +137,6 @@ button{
 .lateral{
     background-color:#dfad67a4 ;
     width: 22%;
-    /* display: flex;
-    justify-content: center; */
     border: 1px solid #444;
     padding: 20px;
 }
@@ -109,6 +146,16 @@ button{
     display: flex;
     justify-content: center;
     margin-top: 40px;
+    overflow: auto;
+}
+
+.lateral-li {
+    border: 2px solid #000;
+    padding: 5px 10px;
+    width: 3fr;
+    border-radius: 6px;
+    display: flex;
+    margin-bottom: 1rem;
 }
 
 /* ======Image background====== */
@@ -136,7 +183,7 @@ button{
     height: 100%;
 
     display: grid;
-    grid-template-columns:1.8fr 0.8fr 1.2fr 1fr;
+    grid-template-columns:1.8fr 0.8fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-gap: 2px ;
 
@@ -148,6 +195,15 @@ button{
 } 
 
 
+
+
+.zone-ul .details-btn, .zone-ul .delete {
+    font-size: 10px;
+    padding: 2px 5px;
+    left: auto; 
+    margin-top: 3px;
+}
+
 .conference { grid-area: conference; }
 .reception { grid-area: reception;}
 .zone3    {grid-area: zone3 ;}
@@ -157,12 +213,60 @@ button{
 .personnel { grid-area: personnel; }
 .archive { grid-area: archive; }
 
+
+
+.container-conference,.container-securite,.container-serveurs {
+    
+    max-height: 180px; 
+    overflow-y: auto; 
+    padding-right: 2px;
+}
+
+
 .zones p{
     font-size: 18px;
     text-align: center;
     font-weight: bold;
+
     position: relative;
-    top: 50%;
+    top: 5px;
+    left: 50%;
+    transform:translateX(-50%) ;
+    z-index: 5;
+    padding: 3px 8px;
+
+   
+}
+
+
+.zone-ul {
+    border: 1px solid #999;
+    margin: 2px 0;
+    padding: 5px; 
+    border-radius: 4px;
+    background-color: white;
+    width: 90%; 
+    font-size: 0.75rem; 
+    line-height: 1.2;
+    position: relative;
+}
+
+.zone-li {
+    list-style: none;
+    margin-bottom: 2px;
+    overflow: hidden; 
+    
+}
+/* Modal */
+ 
+.is-hidden {
+    display: none;
+}
+
+.modal-header{
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .zones button{
@@ -245,32 +349,159 @@ li{
 }
 
 
-/* Paysage  */
+.content {
+    position: absolute;
+    z-index: 10 ;
+    height: 460px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 18px;
+    background-color: rgb(243, 243, 243);
+    padding: 10px 20px;
+    overflow: auto;
+}
+.overlay {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.893);
+}
+
+
+/* ======Form======= */
+.group{
+    line-height: 30px;
+    background-color: rgb(165, 160, 160);
+
+}
+
+.group label{
+    margin-left:20px ;
+}
+
+.groupe{
+    line-height: 30px;
+    background-color: rgb(165, 160, 160);
+}
+
+.groupe label{
+    margin-left:20px ;
+}
+
+
+ #image-formr img{
+    width:100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid black;
+    margin-left: 10px;
+}
+
+
+/* ========================================== */
+/*             Responsive-Paysage             */
+/* ========================================== */
 
 /* Mobile */
-@media (max-width: 768px) {
-.image-container img{
-    /* width: 100vw;
-    height: auto; */
-    transform:rotate(90deg);
-}
-  
+@media (min-width: 768px) and (max-width: 1023px) {
+    
+    .all-content {
+        overflow: hidden; 
+        transform: rotate(90deg);
+    }
+    
+
+    /* Sidebar "lateral"   */
+    .lateral {
+        width: 20%; 
+        padding: 10px;
+    }
+    
+    .lateral h4 {
+        padding: 10px; 
+        font-size: 0.9rem;
+    }
+
+    /* Avatars */
+    .lateral-img {
+        width: 40px; 
+    }
+
+    .lateral-li {
+        padding: 5px;
+        font-size: 0.8rem; 
+    }
+
+   
+    
+    /* Titres des zones  */
+    .zones p {
+        font-size: 14px;
+        padding: 2px 5px;
+        top: 2px;
+    }
+
+    /* Cards in zones*/
+    .zone-ul {
+        width: 95%;
+        padding: 2px;
+        font-size: 0.6rem; 
+    }
+
+    .zone-li {
+        margin-bottom: 1px;
+    }
+
+    /* Boutons + dans les zones */
+    .ajouter-workr {
+        padding: 0px 10px;
+        font-size: 12px;
+        height: 20px;
+    }
+
+    /* Boutons detail/delete  */
+    .zone-ul .details-btn, 
+    .zone-ul .delete {
+        font-size: 8px;
+        padding: 1px 3px;
+    }
 }
 
 /* Tablette */
-/* @media (min-width:1024px) and (max-width: 1279px) {
- .image-container{   
-    width: 90vh;
-    height: auto;
- }
-} */
 
+@media (min-width: 1024px) and (max-width: 1279px) {
 
-/* Buttons */
-/* #ajouter-lateral{
-    padding: 3px 25px;
-    display: flex;
-    justify-content: end;
-    margin-left: 1rem;
+    .lateral {
+        width: 25%;
+        padding: 15px;
+    }
 
-} */
+    .lateral h4 {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    
+    
+    /* Titres des zones */
+    .zones p {
+        font-size: 16px;
+    }
+
+    
+    .zone-ul {
+        font-size: 0.7rem;
+    }
+
+    .zone-ul .details-btn, 
+    .zone-ul .delete {
+        font-size: 9px;
+        padding: 2px 4px;
+    }
+}

@@ -12,11 +12,11 @@
             <div class="overlay"></div>
             <div class="content">
                 <div class="error is-hidden">
-                    
+                    <ul id="liste-error"></ul>
                 </div>
                 <div class="modal-header">
                     <h3>Fill the form:</h3>
-                    <button id="sortir">X</button>
+                    <button id="sortir" class="sortir">X</button>
                 </div>
                 <div class="modal-body">
                     <form action="" id="my-form">
@@ -31,11 +31,14 @@
                       <div class="group">
                         <label for="Role">Role:</label>
                         <select name="role" id="role">
-                            <option value="option1">--Choose one--</option>
-                            <option value="option2">Secretaire</option>
-                            <option value="option3">Security</option>
-                            <option value="option4">Worker</option>
-                            <option value="option5">Secretaire2</option>
+                            <option selected disabled>--Choose one--</option>
+                            <option value="Receptionist">Receptionist</option>
+                            <option value="Security Agent">Security Agent</option>
+                            <option value="Cleaning">Cleaning</option>
+                            <option value="IT technician">IT technician</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Other">Other</option>
+
                         </select>
                       </div>
                       <div class="group">
@@ -46,21 +49,12 @@
                         <label for="image url">Image URL:</label>
                         <input type="text" id="url-image" placeholder="https:/xxxxxxx" >
                         <div id="image-formr">
-                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar">
+                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar" id="avatar">
                         </div>
-                        <label for="experiences">Experince(s):</label>
+                        <label for="experiences">Experince(s):  <button id="experience" class="ajouter-exp">Add Experince</button></label>
                       </div>
-                      <div class="groupe" >
-                        <div id="experience">
-                            <label for="Company">Company:</label>
-                            <input id="company" type="text" placeholder="Company name..." ><br>
-                            <label for="from">From:</label>
-                            <input type="date" id="from-date" placeholder="DD/MM/YYYY">
-                            <label for="to">To:</label>
-                            <input type="date" id="to-date" placeholder="DD/MM/YYYY"><br>
-                            <button class="ajouter-exp">Add Experince</button>
-                        
-                        </div>
+                      
+                      <div id="exp-div" class="groupe" >
                       </div>
                       <button type="submit" id="submit">Submit</button>
                     </form>
@@ -75,7 +69,13 @@
             <div class="lateral">
                 <aside>
                    <h4><em> Employees (UNASSIGNED)</em></h4>
-                   <div class="empty" id="empty-lateral"> <p>jgj</p></div>
+                   <div class="empty" id="empty-lateral"> 
+                    <div class="workers-container">
+                        <ul id="lateral-ul">
+                            
+                        </ul>
+                    </div>
+                   </div>
                    <button class="ajouter" id="ajouter-lateral"><em>Add Employee</em></button> 
                 </aside>
             </div>
@@ -87,41 +87,70 @@
              <img src="plan-image.jpg" alt="image">
 
               <div class="zones">   
-                <div id="1" class="reception">
+                <div id="reception" class="reception" data-zone="reception">
                     <P>Reception</P>
-                    <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                    <div class="container-reception"></div>
+                    <button data-zone="reception" class="ajouter-workr">+</button>
                 </div>
-                <div id="2" class="conference">
+                <div id="conference" class="conference" data-zone="conference">
                     <P>Salle-Conference</P>
-                    <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                    <div class="container-conference"></div>
+                    <button data-zone="conference" class="ajouter-workr">+</button>
                 </div>
-                <div id="3" class="zone3">
+                <div id="zone3" class="zone3">
                 </div>
-                <div id="8" class="zone4">
+                <div id="zone4" class="zone4" data-zone="zone4">
+                    
                 </div>
-                <div id="4" class="serveurs">
+                
+                <div id="serveurs" class="serveurs" data-zone="serveurs">
                     <p>Salle-Serveurs</p>
-                    <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                    <div class="container-serveurs"></div>
+                    <button data-zone="serveurs" class="ajouter-workr">+</button>
                 </div>
-                <div id="5" class="securite">
+                <div id="securite" class="securite" data-zone="securite">
                     <p>Salle-Securite</p>
-                    <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                    <div class="container-securite"></div>
+                    <button data-zone="securite" class="ajouter-workr">+</button>
                 </div>
-                <div id="6" class="personnel">
+                <div id="personnel" class="personnel" data-zone="personnel">
                     <p>Salle-Personnel</p>
-                    <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                    <div class="container-personnel"></div>
+                    <button data-zone="personnel" class="ajouter-workr">+</button>
                 </div>
-                <div id="7" class="archive">
+                <div id="archive" class="archive" data-zone="archive">
                      <p>Salle-Archive</p>
-                     <div class="empty"></div>
-                    <button class="ajouter">+</button>
+                     <div class="container-archive"></div>
+                    <button data-zone="archive" class="ajouter-workr">+</button>
                 </div>
             </div> 
+
+            </div>
+            <!-- modale du liste des employees -->
+            <div class="dialogue-list is-hidden ">
+               <div class="overlay"></div>
+               <div class="content">
+                  <div class="modal-header">
+                    <h3>Employees liste:</h3>
+                    <button class="List-sortir">X</button>
+                  </div>
+                <div id="modal-body" class="modal-body"></div>
+
+               </div>
+
+            </div>
+
+            <!-- modale du détailles -->
+             <div class="dialogue-details is-hidden">
+               <div class="overlay"></div>
+               <div class="content">
+                  <div class="modal-header">
+                    <h3>Employee details:</h3>
+                    <button class="Details-sortir">X</button>
+                  </div>
+                <div id="modl-details" class="modal-body"></div>
+
+               </div>
 
             </div>
             
