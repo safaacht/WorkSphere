@@ -17,6 +17,16 @@ h4{
     text-align: center;
 }
 
+/* ======Paragraphs====== */
+p{
+    font-size: 20px;
+}
+
+/* ======Listes====== */
+li{
+    list-style: none;
+}
+
 /* ========Buttons ========*/
 button{
     cursor: pointer;
@@ -28,6 +38,9 @@ button{
     background-color: rgb(66, 188, 66);
     padding: 3px 25px;
     transition: 0.2s;
+    /* margin-left: 2rem; */
+    position: relative;
+    left: 40%;
 
 
 }
@@ -180,11 +193,15 @@ button{
         "reception zone3 personnel archive";
 
 } 
-.securite{
-    background-color: aqua;
-}
-.zone4{
-    background-color: #000;
+
+
+
+
+.zone-ul .details-btn, .zone-ul .delete {
+    font-size: 10px;
+    padding: 2px 5px;
+    left: auto; 
+    margin-top: 3px;
 }
 
 .conference { grid-area: conference; }
@@ -195,6 +212,16 @@ button{
 .securite { grid-area: securite;}
 .personnel { grid-area: personnel; }
 .archive { grid-area: archive; }
+
+
+
+.container-conference,.container-securite,.container-serveurs {
+    
+    max-height: 180px; 
+    overflow-y: auto; 
+    padding-right: 2px;
+}
+
 
 .zones p{
     font-size: 18px;
@@ -213,21 +240,22 @@ button{
 
 
 .zone-ul {
-  border: 1px solid #ddd;
-  margin: 5px 0;
-  padding: 8px;
-  border-radius: 8px;
-  background-color: #fafafa;
-  width: auto;
-  display: block;
-  z-index: 1;
-
-  
+    border: 1px solid #999;
+    margin: 2px 0;
+    padding: 5px; 
+    border-radius: 4px;
+    background-color: white;
+    width: 90%; 
+    font-size: 0.75rem; 
+    line-height: 1.2;
+    position: relative;
 }
-.zone-li {
-  list-style: none;
-  margin-bottom: 3px;
 
+.zone-li {
+    list-style: none;
+    margin-bottom: 2px;
+    overflow: hidden; 
+    
 }
 /* Modal */
  
@@ -241,13 +269,7 @@ button{
     justify-content: space-between;
 }
 
-p{
-    font-size: 20px;
-}
 
-li{
-    list-style: none;
-}
 
 .content {
     position: absolute;
@@ -307,14 +329,14 @@ li{
 /* Paysage  */
 
 /* Mobile */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
 .image-container img{
-    /* width: 100vw;
-    height: auto; */
+    width: 100vw;
+    height: auto;
     transform:rotate(90deg);
 }
   
-}
+} */
 
 /* Tablette */
 /* @media (min-width:1024px) and (max-width: 1279px) {
