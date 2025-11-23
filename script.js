@@ -57,8 +57,8 @@ form.addEventListener("submit", (e) => {
   // experinces
   let newexp = [];
   const newDiv = document.querySelectorAll(".new-div");
-  // validation d'experiences
 
+  // validation d'experiences
   newDiv.forEach((exp) => {
     const company = document.getElementById("company");
     const rrole = document.getElementById("exp-role");
@@ -88,8 +88,8 @@ form.addEventListener("submit", (e) => {
 
     erreurs.forEach((e) => {
       errooor.innerHTML += `
-                                        <li> ${e}</li>
-                                        `;
+       <li> ${e}</li>
+       `;
       err.classList.remove("is-hidden");
     });
 
@@ -156,6 +156,7 @@ ajoutLateral.addEventListener("click", () => {
   });
 });
 
+
 function renderAll() {
   let zones = [
     "serveurs",
@@ -165,9 +166,13 @@ function renderAll() {
     "conference",
     "reception",
   ];
+
   const unassingEmploye = employees.filter((e) => e.zone === null);
+
+  // clearing the lateral list
+  ul.innerHTML = "";
+
   if (unassingEmploye.length > 0) {
-    ul.innerHTML = "";
     unassingEmploye.forEach((person) => {
       const myLi = document.createElement("li");
       myLi.className = "lateral-li";
@@ -176,9 +181,8 @@ function renderAll() {
       myLi.innerHTML += `
         ${person.name}<br>
         ${person.role}
-        <button class="details-btn">ℹ️</button>
+        <button class="details-btn" data-id="${person.id}">ℹ️</button>
         <img class="lateral-img" src="${person.image}" width="60"/>
-     
         `;
       ul.appendChild(myLi);
     });
@@ -186,148 +190,200 @@ function renderAll() {
 
   zones.forEach((zone) => {
     const divZone = document.querySelector(".container-" + zone);
+    const parentZoneDiv = document.getElementById(zone);
 
-    const employesZone = employees.filter((em) => em.zone === zone);
-    divZone.innerHTML = "";
+    if (divZone) {
+      const employesZone = employees.filter((em) => em.zone === zone);
+      divZone.innerHTML = "";
 
-    employesZone.forEach((e) => {
-      divZone.innerHTML += `
-            <ul class="zone-ul">
-            <li class="zone-li">${e.name}</li>
-            <li class="zone-li">${e.email}</li>
-            <li class="zone-li">${e.role}</li>
-            <button class="details-btn">ℹ️</button>
-        <img class="lateral-img" src="${e.image}" width="10"/>
-        <button class="delete">X</button>
-            </ul>
-            `;
+      // changing the zones's color except conference and personel
+      const safeZones = ["conference", "personnel"];
+
+      if (employesZone.length === 0 && !safeZones.includes(zone)) {
+        parentZoneDiv.style.backgroundColor = "rgba(255, 99, 71, 0.4)";
+      } else {
+        parentZoneDiv.style.backgroundColor = "";
+      }
+
+      employesZone.forEach((e) => {
+        divZone.innerHTML += `
+                <ul class="zone-ul">
+                <li class="zone-li"><strong>${e.name}</strong></li>
+                <li class="zone-li">${e.role}</li>
+                <div style="display:flex; justify-content:center; gap:5px; margin-top:5px;">
+                    <button class="details-btn" data-id="${e.id}">ℹ️</button>
+                    <button class="delete" data-id="${e.id}">X</button>
+                </div>
+                </ul>
+                `;
+      });
+    }
+  });
+
+  dynamicEvents();
+}
+
+// ============================
+//    Delete & Detail  
+// ============================
+function dynamicEvents() {
+  // button delete
+  const deleteButtons = document.querySelectorAll(".delete");
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.getAttribute("data-id");
+      const emp = employees.find((w) => w.id == id);
+
+      if (emp) {
+        emp.zone = null; // to send back to unassigned
+        saveData();
+        renderAll(); 
+      }
+    });
+  });
+
+  // button detail
+  const detailButtons = document.querySelectorAll(".details-btn");
+  detailButtons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const id = e.target.getAttribute("data-id");
+      showDetailsModal(id);
     });
   });
 }
 
-// affichage des employees meme si la page est refrechee
-document.addEventListener("DOMContentLoaded", () => {
-  renderAll();
-  detailModel();
-});
-
 // ============================
-//   Adding workers in zones
+//    Adding workers in zones
 // ============================
 
 const butn = document.querySelectorAll(".ajouter-workr");
-// const zoneDiv = document.querySelectorAll(".empty");
 const modal = document.querySelector("#modal-body");
 const dilog = document.querySelector(".dialogue-list");
-const liste = document.querySelector("#lateral-ul");
 const sortir = document.querySelector(".List-sortir");
-const recep = document.querySelector(".container-resp");
-const conf = document.querySelector(".empty-conf");
-const servr = document.querySelector(".empty-servr");
-const secur = document.querySelector(".empty-securty");
-const perso = document.querySelector(".empty-perso");
-const arch = document.querySelector(".empty-arch");
 
-
-
-
-
-function showModal(zoneChoisi) {
-  const dialg = document.querySelector(".dialogue-list");
-  
-
-  modal.classList.remove("is-hidden");
-  dialg.classList.remove("is-hidden");
-  modal.innerHTML = "";
-
-// cloning the ul
-  const cloneList = liste.cloneNode(true);
-  modal.appendChild(cloneList);
-  
-  listeClick(zoneChoisi)
-  detailModel();
-}
-
-function listeClick(zoneChoisi){
-    const list = modal.querySelectorAll(".lateral-li");
-
-    list.forEach((li) => {
-      li.addEventListener("click", () => {        
-          
-          const mySelected = employees.find(
-              employee => employee.id == li.getAttribute("id"));
-              
-              mySelected.zone = zoneChoisi;
-
-       li.remove();     
-      saveData();
-      renderAll();
-      
-      
-    });
+// capacité max de chaque zone
+const ZONE_LIMITS = {
+    "conference": 2,
+    "serveurs": 2,
+    "personnel": 2,
+    "securite": 2,
+    "reception": 4,
+    "archive": 1,
     
-  });
-}
+};
 
-// + button
+// + button & condition limite par zone
 butn.forEach((b) => {
     b.addEventListener("click", (e) => {
     const zoneChoisi = e.currentTarget.dataset.zone;
-    showModal(zoneChoisi);
-    listeClick(zoneChoisi)
 
+    // counting the number of employees in the zone
+    const currentEmployees = employees.filter(emp => emp.zone === zoneChoisi).length;
+    
+    //  recuperation des limites 
+    const limit = ZONE_LIMITS[zoneChoisi] ;
+
+    if (currentEmployees >= limit) {
+
+        alert(`Zone ${zoneChoisi} is full ! (Max: ${limit} employee)`);
+        return; 
+    }
+
+    // showing the modal if the zone didn't attend its limite
+    showModal(zoneChoisi);
   });
 });
+
+
+function showModal(zoneChoisi) {
+  modal.classList.remove("is-hidden");
+  dilog.classList.remove("is-hidden");
+  modal.innerHTML = "";
+
+
+  const validEmployees = employees.filter( (e) => e.zone === null );
+
+  const tempUl = document.createElement("ul");
+
+  validEmployees.forEach((person) => {
+    const li = document.createElement("li");
+    li.className = "lateral-li";
+    li.setAttribute("id", person.id);
+    li.style.cursor = "pointer";
+    li.style.border = "1px solid #333";
+    li.style.margin = "5px";
+    li.style.padding = "5px";
+    li.innerHTML = `${person.name} - <strong>${person.role}</strong>`;
+
+    // selecting by click 
+    li.addEventListener("click", () => {
+      person.zone = zoneChoisi;
+      saveData();
+      renderAll();
+      dilog.classList.add("is-hidden"); // closing the  modal after selection
+    });
+
+    tempUl.appendChild(li);
+  });
+
+  modal.appendChild(tempUl);
+}
 
 sortir.addEventListener("click", () => {
   dilog.classList.add("is-hidden");
 });
 
 // ===============================
-//   Affichage worker's details
+//    Affichage worker's details
 // ===============================
 
-function detailModel() {
-  const detail = document.querySelectorAll(".details-btn");
-  const btn = document.querySelector(".Details-sortir");
+function showDetailsModal(id) {
   const dialogue = document.querySelector(".dialogue-details");
   const modl = document.getElementById("modl-details");
+  const btn = document.querySelector(".Details-sortir");
 
-  detail.forEach((d) => {
-    d.addEventListener("click", (e) => {
-        dialogue.classList.remove("is-hidden");
-       const li = e.target.closest(".lateral-li");
-       const id = li.getAttribute("id");
-       const worker = employees.find((w) => w.id == id);
-        console.log(worker)
+  const worker = employees.find((w) => w.id == id);
 
+  if (!worker) return;
 
-       modl.innerHTML=`
-       
+  dialogue.classList.remove("is-hidden");
+
+  modl.innerHTML = `
+    <div style="text-align:center">
         <h2>${worker.name}</h2>
-        <img src="${worker.image}" width="80">
-        <p> <strong>Email:</strong> ${worker.email}</p>
-        <p><strong>Role:</strong> ${worker.role}</p>
-        <p><strong>Phone:</strong> ${worker.phone}</p>
-        <h2>Experience(s):</h2>
-        <ul>
-        ${worker.experience.map(
-            (exp)=>`
-            <li>
-            <strong>Company:</strong>${exp.company}<br>
-            <strong>Role:</strong>${exp.rrol}<br>
-            ${exp.startDate} → ${exp.endDate}
-            </li>
-            `
-        ).join("")}
-        </ul>
-        <p><strong>Location:</strong> ${worker.zone}</p>
-       `
-    });
-    
-  });
+        <img src="${
+          worker.image
+        }" width="80" style="border-radius:50%; margin:10px 0;">
+    </div>
+    <p> <strong>Email:</strong> ${worker.email}</p>
+    <p><strong>Role:</strong> ${worker.role}</p>
+    <p><strong>Phone:</strong> ${worker.phone}</p>
+    <hr>
+    <h3>Experience(s):</h3>
+    <ul>
+    ${worker.experience
+      .map(
+        (exp) => `
+        <li>
+        <strong>Company:</strong> ${exp.company}<br>
+        <strong>Role:</strong> ${exp.rrol}<br>
+        ${exp.startDate} → ${exp.endDate}
+        </li>
+        `
+      )
+      .join("")}
+    </ul>
+    <p><strong>Location:</strong> ${
+      worker.zone ? worker.zone : "Unassigned"
+    }</p>
+   `;
 
   btn.addEventListener("click", () => {
     dialogue.classList.add("is-hidden");
   });
 }
+
+// page load
+document.addEventListener("DOMContentLoaded", () => {
+  renderAll();
+});
