@@ -146,6 +146,7 @@ ajoutLateral.addEventListener("click", () => {
     const imagechange = document.getElementById("url-image").value;
     const img = document.getElementById("avatar");
     img.src = imagechange;
+    img.alt ="avatar"
   });
 
   //X button
@@ -181,7 +182,7 @@ function renderAll() {
         ${person.name}<br>
         ${person.role}
         <button class="details-btn" data-id="${person.id}">ℹ️</button>
-        <img class="lateral-img" src="${person.image}" width="60"/>
+        <img class="lateral-img" alt="avatar" src="${person.image}" width="60"/>
         `;
       ul.appendChild(myLi);
     });
@@ -350,7 +351,7 @@ function showDetailsModal(id) {
   modl.innerHTML = `
     <div style="text-align:center">
         <h2>${worker.name}</h2>
-        <img src="${
+        <img alt="avatar" src="${
           worker.image
         }" width="80" style="border-radius:50%; margin:10px 0;">
     </div>
