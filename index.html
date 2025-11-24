@@ -1,163 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
 
-        <title> WorkSphere</title>
+    <title>WorkSphere</title>
 
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
-    </head>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
 
-    <body>
-
-        <div class="dialogue is-hidden">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="error is-hidden">
-                    <ul id="liste-error"></ul>
-                </div>
-                <div class="modal-header">
-                    <h3>Fill the form:</h3>
-                    <button id="sortir" class="sortir">X</button>
-                </div>
-                <div class="modal-body">
-                    <form action="#" id="my-form">
-                      <div class="group">
-                          <label for="name">Name:</label>
-                        <input id="name" type="text" placeholder="Enter your name...">
-                      </div>
-                      <div class="group">
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" placeholder="Enter your email...">
-                      </div>
-                      <div class="group">
-                        <label for="role">Role:</label>
-                        <select name="role" id="role">
-                            <option selected disabled>--Choose one--</option>
-                            <option value="Receptionist">Receptionist</option>
-                            <option value="Security Agent">Security Agent</option>
-                            <option value="Cleaning">Cleaning</option>
-                            <option value="IT technician">IT technician</option>
-                            <option value="Manager">Manager</option>
-                            <option value="Other">Other</option>
-
-                        </select>
-                      </div>
-                      <div class="group">
-                        <label for="phone">Phone:</label>
-                        <input type="text" id="phone" placeholder="06 00 00 00 00">
-                      </div>
-                      <div class="group"> 
-                        <label for="url-image">Image URL:</label>
-                        <input type="text" id="url-image" placeholder="https:/xxxxxxx" >
-                        <div id="image-formr">
-                            <img src="https://avatar.iran.liara.run/public/26" alt="avatar" id="avatar">
-                        </div>
-                        <label for="experience">Experince(s): </label>
-                        <button id="experience" class="ajouter-exp">Add Experince</button>
-                      </div>
-                      
-                      <div id="exp-div" class="groupe" >
-                      </div>
-                      <button type="submit" id="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
+  <body>
+    <div class="dialogue is-hidden">
+      <div class="overlay"></div>
+      <div class="content">
+        <div class="error is-hidden">
+          <ul id="liste-error"></ul>
         </div>
-
-        <div class="all-content">
-
-            <!-- =========Lateral liste========= -->
-
-            <div class="lateral">
-                <aside>
-                   <h4><em> Employees (UNASSIGNED)</em></h4>
-                   <div class="empty" id="empty-lateral"> 
-                    <div class="workers-container">
-                        <ul id="lateral-ul">
-                            
-                        </ul>
-                    </div>
-                   </div>
-                   <button class="ajouter" id="ajouter-lateral"><em>Add Employee</em></button> 
-                </aside>
-            </div>
-
-            <!-- ========Image Container======= -->
-
-            <div class="image-container" >
-
-             <img src="plan-image.jpg" alt="image">
-
-              <div class="zones">   
-                <div id="reception" class="reception" data-zone="reception">
-                    <P>Reception</P>
-                    <div class="container-reception"></div>
-                    <button data-zone="reception" class="ajouter-workr">+</button>
-                </div>
-                <div id="conference" class="conference" data-zone="conference">
-                    <P>Salle-Conference</P>
-                    <div class="container-conference"></div>
-                    <button data-zone="conference" class="ajouter-workr">+</button>
-                </div>
-                <div id="zone3" class="zone3">
-                </div>
-                <div id="zone4" class="zone4" data-zone="zone4">
-                    
-                </div>
-                
-                <div id="serveurs" class="serveurs" data-zone="serveurs">
-                    <p>Salle-Serveurs</p>
-                    <div class="container-serveurs"></div>
-                    <button data-zone="serveurs" class="ajouter-workr">+</button>
-                </div>
-                <div id="securite" class="securite" data-zone="securite">
-                    <p>Salle-Securite</p>
-                    <div class="container-securite"></div>
-                    <button data-zone="securite" class="ajouter-workr">+</button>
-                </div>
-                <div id="personnel" class="personnel" data-zone="personnel">
-                    <p>Salle-Personnel</p>
-                    <div class="container-personnel"></div>
-                    <button data-zone="personnel" class="ajouter-workr">+</button>
-                </div>
-                <div id="archive" class="archive" data-zone="archive">
-                     <p>Salle-Archive</p>
-                     <div class="container-archive"></div>
-                    <button data-zone="archive" class="ajouter-workr">+</button>
-                </div>
-            </div> 
-
-            </div>
-            <!-- modale du liste des employees -->
-            <div class="dialogue-list is-hidden ">
-               <div class="overlay"></div>
-               <div class="content">
-                  <div class="modal-header">
-                    <h3>Employees liste:</h3>
-                    <button class="List-sortir">X</button>
-                  </div>
-                <div id="modal-body" class="modal-body"></div>
-
-               </div>
-
-            </div>
-
-            <!-- modale du détailles -->
-             <div class="dialogue-details is-hidden">
-               <div class="overlay"></div>
-               <div class="content">
-                  <div class="modal-header">
-                    <h3>Employee details:</h3>
-                    <button class="Details-sortir">X</button>
-                  </div>
-                <div id="modl-details" class="modal-body"></div>
-
-               </div>
-
-            </div>
-            
+        <div class="modal-header">
+          <h3>Fill the form:</h3>
+          <button id="sortir" class="sortir">X</button>
         </div>
-    </body>
+        <div class="modal-body">
+          <form action="#" id="my-form">
+            <div class="group">
+              <label for="name">Name:</label>
+              <input id="name" type="text" placeholder="Enter your name..." />
+            </div>
+            <div class="group">
+              <label for="email">Email:</label>
+              <input
+                id="email"
+                type="email"
+                placeholder="Enter your email..."
+              />
+            </div>
+            <div class="group">
+              <label for="role">Role:</label>
+              <select name="role" id="role">
+                <option selected disabled>--Choose one--</option>
+                <option value="Receptionist">Receptionist</option>
+                <option value="Security Agent">Security Agent</option>
+                <option value="Cleaning">Cleaning</option>
+                <option value="IT technician">IT technician</option>
+                <option value="Manager">Manager</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="group">
+              <label for="phone">Phone:</label>
+              <input type="text" id="phone" placeholder="06 00 00 00 00" />
+            </div>
+            <div class="group">
+              <label for="url-image">Image URL:</label>
+              <input type="text" id="url-image" placeholder="https:/xxxxxxx" />
+              <div id="image-formr">
+                <img
+                  src="https://avatar.iran.liara.run/public/26"
+                  alt="avatar"
+                  id="avatar"
+                />
+              </div>
+              <label for="experience">Experince(s): </label>
+              <button id="experience" class="ajouter-exp">Add Experince</button>
+            </div>
+
+            <div id="exp-div" class="groupe"></div>
+            <button type="submit" id="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="all-content">
+      <!-- =========Lateral liste========= -->
+
+      <div class="lateral">
+        <aside>
+          <h4><em> Employees (UNASSIGNED)</em></h4>
+          <div class="empty" id="empty-lateral">
+            <div class="workers-container">
+              <ul id="lateral-ul"></ul>
+            </div>
+          </div>
+          <button class="ajouter" id="ajouter-lateral">
+            <em>Add Employee</em>
+          </button>
+        </aside>
+      </div>
+
+      <!-- ========Image Container======= -->
+
+      <div class="image-container">
+        <img src="plan-image.jpg" alt="image" />
+
+        <div class="zones">
+          <div id="reception" class="reception" data-zone="reception">
+            <p>Reception</p>
+            <div class="container-reception"></div>
+            <button data-zone="reception" class="ajouter-workr">+</button>
+          </div>
+          <div id="conference" class="conference" data-zone="conference">
+            <p>Salle-Conference</p>
+            <div class="container-conference"></div>
+            <button data-zone="conference" class="ajouter-workr">+</button>
+          </div>
+          <div id="zone3" class="zone3"></div>
+          <div id="zone4" class="zone4" data-zone="zone4"></div>
+
+          <div id="serveurs" class="serveurs" data-zone="serveurs">
+            <p>Salle-Serveurs</p>
+            <div class="container-serveurs"></div>
+            <button data-zone="serveurs" class="ajouter-workr">+</button>
+          </div>
+          <div id="securite" class="securite" data-zone="securite">
+            <p>Salle-Securite</p>
+            <div class="container-securite"></div>
+            <button data-zone="securite" class="ajouter-workr">+</button>
+          </div>
+          <div id="personnel" class="personnel" data-zone="personnel">
+            <p>Salle-Personnel</p>
+            <div class="container-personnel"></div>
+            <button data-zone="personnel" class="ajouter-workr">+</button>
+          </div>
+          <div id="archive" class="archive" data-zone="archive">
+            <p>Salle-Archive</p>
+            <div class="container-archive"></div>
+            <button data-zone="archive" class="ajouter-workr">+</button>
+          </div>
+        </div>
+      </div>
+      <!-- modale du liste des employees -->
+      <div class="dialogue-list is-hidden">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="modal-header">
+            <h3>Employees liste:</h3>
+            <button class="List-sortir">X</button>
+          </div>
+          <div id="modal-body" class="modal-body"></div>
+        </div>
+      </div>
+
+      <!-- modale du détailles -->
+      <div class="dialogue-details is-hidden">
+        <div class="overlay"></div>
+        <div class="content">
+          <div class="modal-header">
+            <h3>Employee details:</h3>
+            <button class="Details-sortir">X</button>
+          </div>
+          <div id="modl-details" class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -156,7 +156,6 @@ ajoutLateral.addEventListener("click", () => {
   });
 });
 
-
 function renderAll() {
   let zones = [
     "serveurs",
@@ -224,7 +223,7 @@ function renderAll() {
 }
 
 // ============================
-//    Delete & Detail  
+//    Delete & Detail
 // ============================
 function dynamicEvents() {
   // button delete
@@ -237,7 +236,7 @@ function dynamicEvents() {
       if (emp) {
         emp.zone = null; // to send back to unassigned
         saveData();
-        renderAll(); 
+        renderAll();
       }
     });
   });
@@ -263,30 +262,30 @@ const sortir = document.querySelector(".List-sortir");
 
 // capacité max de chaque zone
 const ZONE_LIMITS = {
-    "conference": 2,
-    "serveurs": 2,
-    "personnel": 2,
-    "securite": 2,
-    "reception": 4,
-    "archive": 1,
-    
+  conference: 2,
+  serveurs: 2,
+  personnel: 2,
+  securite: 2,
+  reception: 4,
+  archive: 1,
 };
 
 // + button & condition limite par zone
 butn.forEach((b) => {
-    b.addEventListener("click", (e) => {
+  b.addEventListener("click", (e) => {
     const zoneChoisi = e.currentTarget.dataset.zone;
 
     // counting the number of employees in the zone
-    const currentEmployees = employees.filter(emp => emp.zone === zoneChoisi).length;
-    
-    //  recuperation des limites 
-    const limit = ZONE_LIMITS[zoneChoisi] ;
+    const currentEmployees = employees.filter(
+      (emp) => emp.zone === zoneChoisi
+    ).length;
+
+    //  recuperation des limites
+    const limit = ZONE_LIMITS[zoneChoisi];
 
     if (currentEmployees >= limit) {
-
-        alert(`Zone ${zoneChoisi} is full ! (Max: ${limit} employee)`);
-        return; 
+      alert(`Zone ${zoneChoisi} is full ! (Max: ${limit} employee)`);
+      return;
     }
 
     // showing the modal if the zone didn't attend its limite
@@ -294,14 +293,14 @@ butn.forEach((b) => {
   });
 });
 
-
 function showModal(zoneChoisi) {
   modal.classList.remove("is-hidden");
   dilog.classList.remove("is-hidden");
   modal.innerHTML = "";
 
-
-  const validEmployees = employees.filter( (e) => e.zone === null && accessZone(e.role, zoneChoisi) );
+  const validEmployees = employees.filter(
+    (e) => e.zone === null && accessZone(e.role, zoneChoisi)
+  );
 
   const tempUl = document.createElement("ul");
 
@@ -315,7 +314,7 @@ function showModal(zoneChoisi) {
     li.style.padding = "5px";
     li.innerHTML = `${person.name} - <strong>${person.role}</strong>`;
 
-    // selecting by click 
+    // selecting by click
     li.addEventListener("click", () => {
       person.zone = zoneChoisi;
       saveData();
@@ -383,7 +382,6 @@ function showDetailsModal(id) {
   });
 }
 
-
 // ===============================
 //    Zone's restrictions
 // ===============================
@@ -412,10 +410,9 @@ function accessZone(role, zone) {
     return false;
   }
 
-//  other role can access anywhere except the resticted ones
+  //  other role can access anywhere except the resticted ones
   return true;
 }
-
 
 // page load
 document.addEventListener("DOMContentLoaded", () => {
